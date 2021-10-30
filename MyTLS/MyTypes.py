@@ -1,0 +1,49 @@
+ENCODE_METHOD = "gbk"
+
+class messageType:
+    VERSION_MYTLS1 = 16
+
+    TYPE_HELLO            = 0
+    TYPE_CERTEXCHANGE     = 1
+    TYPE_KEYEXCHANGE      = 2
+    TYPE_HELLODONE        = 3
+    TYPE_CHANGECIPHERSPEC = 4
+    TYPE_FINISHED         = 5
+    TYPE_PAYLOAD          = 6
+
+    ENCRY_METHOD_RSA_AES_SHA256 = 2
+    #以下暂时不实现
+    ENCRY_METHOD_RSA_AES_MD5    = 1
+    ENCRY_METHOD_DH_AES_MD5     = 4
+
+    HEADER_LENGTH = 4
+
+class myCipherType:
+    RSA_NEWKEYSET = (None, None)
+    RSA_N         = 65537
+    RSA_KEYLENGTH = 1024
+
+    HMAC_METHOD_SHA256 = "sha256"
+    HMAC_METHOD_SHA1   = "sha1"
+    HMAC_METHOD_MD5    = "md5"
+
+class myTLSSocketType:
+    SOCKET_NOT_ANONYMOUS = 0
+    SOCKET_ANONYMOUS     = 1
+
+    SOCKET_NOT_CACONFIRM = 0
+    SOCKET_CACONFIRM     = 1
+
+    SERVER_NOT_AUTO_CONNECT = 0
+    SERVER_AUTO_CONNECT     = 1
+
+    ROLE_SERVER = 0
+    ROLE_CLIENT = 1
+
+    RECV_NO_BLOCK = 0
+    RECV_BLOCK    = 1
+
+    MAX_PACKAGE_LENGTH = 2500
+
+
+

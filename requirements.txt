@@ -1,0 +1,2 @@
+rsa==4.7.2
+pycryptodome==3.11.0
