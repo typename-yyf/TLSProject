@@ -1,7 +1,7 @@
-#简易TLS实现(^^
+# 简易TLS实现(^^
 （老师要求的）
 
-##所有文件
+## 所有文件
     .
     ├── MyTLS
     │   ├── Extras.py
@@ -20,7 +20,7 @@
         ├── ServerCert.mycert
         └── mokou.jpg
 
-##demo
+## demo
 
 先运行demoServer.py，再运行demoClient.py
 
@@ -29,7 +29,7 @@
     python3 demoServer.py &
     python3 demoClient.py
 
-##接口
+## 接口
 MyTLS的使用方法和普通的python socket没有太大区别，看看demo就知道咋用了
 
-##之后还会更新一点点内容（还没做完）
+## 之后还会更新一点点内容（还没做完）
