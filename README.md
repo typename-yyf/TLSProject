@@ -29,6 +29,10 @@
     python3 demoServer.py &
     python3 demoClient.py
 
+## clientDir
+
+需要自己在项目下创建一个空的clientDir文件夹
+
 ## 接口
 MyTLS的使用方法和普通的python socket没有太大区别，看看demo就知道咋用了
 
