@@ -1,4 +1,4 @@
-from MyTLS.MyTSLExceptions import WrongMessageException
+from MyTLS.MyTLSExceptions import WrongMessageException
 from MyTLS.Extras import *
 from MyTLS.MyTypes import *
 import rsa

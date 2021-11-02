@@ -1,5 +1,5 @@
 from Crypto.Cipher import AES
-from MyTLS.MyTSLExceptions import WrongKeyException
+from MyTLS.MyTLSExceptions import WrongKeyException
 from MyTLS.MyTypes import myCipherType
 from MyTLS.Extras import *
 from time import time
@@ -103,7 +103,7 @@ class MyHMac:
     def verify(self, msg: bytes) -> bytes:
         return hmac.digest(self.__verKey, msg, self.__method)
 
-    def digestAndConcact(self, msg: bytes) -> bytes:
+    def digestAndConcat(self, msg: bytes) -> bytes:
         return msg + hmac.digest(self.__key, msg, self.__method)
 
     def verifyAndSeparate(self, msg: bytes) -> bytes:

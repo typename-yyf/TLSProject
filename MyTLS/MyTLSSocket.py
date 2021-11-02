@@ -2,7 +2,7 @@ from socket import *
 from typing.io import BinaryIO
 import rsa
 from MyTLS.MyTypes import ENCODE_METHOD, myTLSSocketType, messageType
-from MyTLS.MyTSLExceptions import TCPSocketException
+from MyTLS.MyTLSExceptions import TCPSocketException
 from MyTLS.MessageTypes import *
 from time import time
 from random import randint
@@ -37,7 +37,7 @@ class TLSSocket:
         self._thisCert = cert
 
     def __sendPackage(self, msg: bytes, end: int = 0) -> None:
-        payload = self._hashEncoder.digestAndConcact(msg)
+        payload = self._hashEncoder.digestAndConcat(msg)
         payload = self._encoder.encrypt(payload)
 
         package = Payload.makeMessage(__payload__=payload, __end__=end)
@@ -91,14 +91,14 @@ class TLSSocket:
 
         return recvBuffer
 
-    def recvFile(self, fd: BinaryIO):
+    def recvFile(self, fd: BinaryIO) -> None:
         while True:
             buffer = self.recv(4096)
             if buffer == b"":
                 break
             fd.write(buffer)
 
-    def close(self):
+    def close(self) -> None:
         self._tcpSocket.close()
 
     def _sendHelloMessage(self, randNum: int, encryMethod: int) -> None:
@@ -128,7 +128,7 @@ class TLSSocket:
         return ChangeCipherSpecMessage(self.__recvPackage())
     def _sendFinishedMessage(self) -> None:
         fiMsg = "finished".encode(ENCODE_METHOD)
-        fiMsg = self._hashEncoder.digestAndConcact(fiMsg)
+        fiMsg = self._hashEncoder.digestAndConcat(fiMsg)
         fiMsg = self._encoder.encrypt(fiMsg)
         fiMsg = FinishedMessage.makeMessage(fiMsg)
         self._tcpSocket.send(fiMsg)
@@ -233,7 +233,8 @@ class TLSClient(TLSSocket):
 
     def __init__(self,
                  isAnonymous = myTLSSocketType.SOCKET_ANONYMOUS,
-                 caConfirm = myTLSSocketType.SOCKET_NOT_CACONFIRM):
+                 caConfirm = myTLSSocketType.SOCKET_NOT_CACONFIRM,
+                 encryMethod = messageType.ENCRY_METHOD_RSA_AES_SHA256):
         super().__init__()
 
         self.__isAnonymous = isAnonymous
@@ -247,7 +248,7 @@ class TLSServer(TLSSocket):
     _port = None
     __connectTime = None
 
-    def __init__(self):
+    def __init__(self, encryMethod = messageType.ENCRY_METHOD_RSA_AES_SHA256):
         super().__init__()
 
     def __choseEncryptMethod(self, allMethods: int) -> int:
@@ -284,6 +285,7 @@ class TLSServer(TLSSocket):
         self._randNum2 = randint(1 << 31, 1 << 32)
         self._sendHelloMessage(randNum=self._randNum2, encryMethod=self._encryMethod)
 
+        # =========根据不同加密套件来进行不同的通信协议==========
         self.__diffHandShakes()
 
         self._recvChangeCipherSpecMessage()
